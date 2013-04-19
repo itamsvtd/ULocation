@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  {% endif %}
+  <ul class=location>
+    <h4>
+      Location's description:
+    </h4>
+  {% for location in locations %}
+    <h2>
+    <li><p>
+      Name: {{ location.name}}
+    </p>
+
+    <li><p>
+      Address: {{ location.address }}
+    </p>
+
+    <li><p>
+      Lat: {{ location.lat}}
+    </p>
+    
+    <li><p>
+      Lng {{ location.lng}}
+    </p>
+    
+    </h2>
+  {% else %}
+    <li><em>there is no locations</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

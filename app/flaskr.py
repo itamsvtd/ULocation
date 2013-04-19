@@ -46,6 +46,15 @@ def add_location():
     return render_template('add_location.html',locations= locations)
 
 
+
+@app.route('/location/<location_name>',methods=['GET','POST'])
+def singlelocation(location_name=None):
+    cur = g.db.execute('select lat,lng,address,name from location where name = ?',[location_name])
+    locations = [dict(lat = row[0] , lng = row[1], address=row[2], name=row[3]) for row in cur.fetchall()]
+    return render_template('single_location.html',locations= locations)
+
+
+
 @app.route('/delete', methods=['GET','POST'])
 def delete_location():
     if request.method == 'POST':

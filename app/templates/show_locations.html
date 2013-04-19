@@ -1,21 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-  
-     
-  
   {% endif %}
-  <ul class=location>
+ <ul class=location>
     <h4>
       Location's lists:
     </h4>
   {% for location in locations %}
     <li><h2>
-    Name: {{ location.name}}
-    ,Address: {{ location.address }}
-    
-    ,Lat: {{ location.lat}}
-    ,Lng {{ location.lng}}
+          <a href="{{ url_for('singlelocation',location_name = location.name ) }} ">{{ location.name}}</a>
     </h2>
   {% else %}
     <li><em>there is no locations</em>
