@@ -1,0 +1,16 @@
+{
+    "location": [
+        {
+            "lat": "3213", 
+            "lng": "234324", 
+            "name": "Ed pizza", 
+            "address": "3450 Chesnut"
+        }, 
+        {
+            "lat": "39.9597", 
+            "lng": " -75.1968", 
+            "name": "Savas", 
+            "address": "3400 Powelton"
+        }
+    ]
+}
