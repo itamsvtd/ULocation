@@ -1,25 +1,24 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Flask</title>    
-    <strong><link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"></strong>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <h1 class="logo">Flask App</h1>
-          <strong><nav>
-        <ul class="menu">
-         <li><a href="{{ url_for('home') }}">Home</a></li>
-         <li><a href="{{ url_for('about') }}">About</a></li>
-        </ul>
-      </nav></strong>
-      </div>
-    </header>
-    
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-  </body>
+<body>
+
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+<div class=page>
+  <h1>Uber</h1>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">Log in</a>
+    <a href="{{ url_for('show_location') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">Log out</a>
+    <a href="{{ url_for('show_location') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
+</body>
 </html>

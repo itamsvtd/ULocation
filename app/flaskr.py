@@ -71,6 +71,10 @@ def login():
             return redirect(url_for('show_location'))
     return render_template('login.html', error=error)
 
+@app.route('/about')
+def about():
+  return render_template('about.html')
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
