@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  {% if session.logged_in %}
+  
+      
+    <form action="{{ url_for('add_location') }}" method=post class=add-location>
+      <dl>
+        <dt>Lat:
+        <dd><input type=text name=lat size = 30 ></textarea>
+        <dt>Lng:
+        <dd><input type=text name=lng size = 30 ></textarea>
+        <dt>Address:
+        <dd><textarea name=address rows=2 cols=30></textarea>
+        <dt>Name:
+        <dd><input type=text size=30 name=name>
+        
+        <tr>
+        <td><input type=submit value=Add> </td>
+      
+        </tr>
+      </dl>
+    </form>
+
+    
+  {% endif %}
+  <ul class=location>
+    <h4>
+      Location's lists:
+    </h4>
+  {% for location in locations %}
+    <li><h2>
+    Name: {{ location.name}}
+    ,Address: {{ location.address }}
+    
+    ,Lat: {{ location.lat}}
+    ,Lng {{ location.lng}}
+    </h2>
+  {% else %}
+    <li><em>there is no locations</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

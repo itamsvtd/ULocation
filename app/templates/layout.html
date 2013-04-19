@@ -7,10 +7,16 @@
   <div class=metanav>
   {% if not session.logged_in %}
     <a href="{{ url_for('login') }}">Log in</a>
+    <a href="{{ url_for('add_location') }}">Add</a>
+    <a href="{{ url_for('modify_location') }}">Modify</a>
+    <a href="{{ url_for('delete_location') }}">Delete</a>
     <a href="{{ url_for('show_location') }}">Home</a>
     <a href="{{ url_for('about') }}">About</a>
   {% else %}
     <a href="{{ url_for('logout') }}">Log out</a>
+    <a href="{{ url_for('add_location') }}">Add</a>
+    <a href="{{ url_for('modify_location') }}">Modify</a>
+    <a href="{{ url_for('delete_location') }}">Delete</a>
     <a href="{{ url_for('show_location') }}">Home</a>
     <a href="{{ url_for('about') }}">About</a>
   {% endif %}

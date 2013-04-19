@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-  
-     
-  
+    <form action="{{ url_for('delete_location') }}" method=post class=add-location>
+      <dl>
+        <dt>Location you want to delete:
+        <dd><input type=text name=deletename size = 30 ></textarea>
+        <td><input type=submit value=Delete> </td>
+        </tr>
+      </dl>
+    </form>
   {% endif %}
   <ul class=location>
     <h4>

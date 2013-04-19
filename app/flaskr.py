@@ -32,29 +32,41 @@ def show_location():
     locations = [dict(lat = row[0] , lng = row[1], address=row[2], name=row[3]) for row in cur.fetchall()]
     return render_template('show_locations.html', locations= locations)
 
-@app.route('/add', methods=['GET','POST'])
+@app.route('/add',methods=['GET','POST'])
 def add_location():
-    if not session.get('logged_in'):
-        abort(401)
-    g.db.execute('insert into location (lat,lng , address, name) values (?, ?,?,?)',
-                 [request.form['lat'], request.form['lng'],request.form['address'],request.form['name']])
-    g.db.commit()
-    flash('New location successfully created')
-    return redirect(url_for('show_location'))
+    if request.method == 'POST':
+        g.db.execute('insert into location(lat,lng,address,name) values (?, ?,?,?)',
+            [request.form['lat'], request.form['lng'],request.form['address'],request.form['name']])
+        g.db.commit()
+        flash('Target location successfully added')
+
+   
+    cur = g.db.execute('select lat,lng,address,name from location order by id desc')
+    locations = [dict(lat = row[0] , lng = row[1], address=row[2], name=row[3]) for row in cur.fetchall()]
+    return render_template('add_location.html',locations= locations)
+
 
 @app.route('/delete', methods=['GET','POST'])
 def delete_location():
-    g.db.execute('delete from location where name= ?',[request.form['deletename']])
-    g.db.commit()
-    flash('Target location successfully deleted')
-    return redirect(url_for('show_location'))
+    if request.method == 'POST':
+        g.db.execute('delete from location where name= ?',[request.form['deletename']])
+        g.db.commit()
+        flash('Target location successfully deleted')
+
+    cur = g.db.execute('select lat,lng,address,name from location order by id desc')
+    locations = [dict(lat = row[0] , lng = row[1], address=row[2], name=row[3]) for row in cur.fetchall()]
+    return render_template('delete_location.html',locations= locations)
 
 @app.route('/modify', methods=['GET','POST'])
 def modify_location():
-    g.db.execute('UPDATE location SET lat= ?, lng=?, address = ?,  name =? where name= ?',[request.form['lat'],request.form['lng'],request.form['address'],request.form['name'],request.form['modifyname']])
-    g.db.commit()
-    flash('Target location successfully modified')
-    return redirect(url_for('show_location'))
+    if request.method == 'POST':
+        g.db.execute('UPDATE location SET lat= ?, lng=?, address = ?,  name =? where name= ?',[request.form['lat'],request.form['lng'],request.form['address'],request.form['name'],request.form['modifyname']])
+        g.db.commit()
+        flash('Target location successfully modified')
+
+    cur = g.db.execute('select lat,lng,address,name from location order by id desc')
+    locations = [dict(lat = row[0] , lng = row[1], address=row[2], name=row[3]) for row in cur.fetchall()]
+    return render_template('modify_location.html',locations= locations)
 
 
 @app.route('/login', methods=['GET', 'POST'])
